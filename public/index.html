@@ -5,9 +5,11 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.3/angular.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular-route.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/style.css" />
+    <script src="./assets/js/call.js"></script>
+    <script src="./assets/js/modals.js"></script>
 </head>
 
 <body class="well">
@@ -24,20 +26,14 @@
                     <a class="navbar-brand" href="/">Expenses App</a>
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
-                    <!-- <ul class="nav navbar-nav">
-                          <li class="active"><a href="#">Home</a></li>
-                          <li><a href="#">Page 1</a></li>
-                          <li><a href="#">Page 2</a></li> 
-                          <li><a href="#">Page 3</a></li> 
-                        </ul> -->
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="#">
+                            <a href="#" onclick="openAddExpenseModal()">
                                 <span class="glyphicon glyphicon-plus"></span> Add Expense</a>
                         </li>
                         <li>
                             <a href="#">
-                                    <span class="glyphicon glyphicon-info-sign"></span> About it</a>
+                                <span class="glyphicon glyphicon-info-sign"></span> About it</a>
                             </a>
                         </li>
                     </ul>
@@ -49,6 +45,49 @@
     <div class="row">
         <h3>Hello! Let's visualize how you are spending your
             <strong>money</strong>!</h3>
+    </div>
+
+    <div class="modal fade" id="addExpense" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" align="center">
+                    <h3>Add Expense</h3>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Type:</label>
+                                <select class="form-control">
+                                    <option selected>-- Select one option --</option>
+                                    <option value="Fixed">Fixed</option>
+                                    <option value="Daycare">Daycare</option>
+                                    <option value="Loans">Loans</option>
+                                    <option value="Daycare">Daycare</option>
+                                    <option value="Tuition">Tuition</option>
+                                    <option value="Utilities">Utilities</option>
+                                    <option value="Vacation">Vacation</option>
+                                    <option value="Fun">Fun</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Value:</label>
+                                <input type="text" class="form-control" placeholder="$0.00" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <p>
+                        <button class="btn btn-primary" type="submit">Save</button>
+                        <a class="btn btn-default" onclick="$('#addExpense').modal('hide');">Close</a>
+                    </p>
+                </div>
+            </div>
+
+        </div>
     </div>
 </body>
 

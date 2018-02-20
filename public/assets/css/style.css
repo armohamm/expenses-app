@@ -5,3 +5,12 @@
 .row {
     margin-top: 10px;
 }
+
+.modal-header{
+    background-color: #1f79bd;
+    color: white;
+}
+
+.fade{
+    background-color : transparent;
+}

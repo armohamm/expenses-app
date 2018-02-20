@@ -1,0 +1,3 @@
+function openAddExpenseModal(){
+    $("#addExpense").modal();
+}

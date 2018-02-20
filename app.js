@@ -2,11 +2,13 @@ var express = require('express');
 var app = express();
 var morgan = require('morgan');
 var path = require('path');
+var firebase = require('firebase');
+var database = require('./config/database.js');
+
+firebase.initializeApp(database);
 
 app.use(express.static('./public'));
 app.use(morgan('dev'));
-
-console.log(__dirname);
 
 require('./routes/routes.js')(app, path);
 
