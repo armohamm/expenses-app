@@ -1,5 +1,7 @@
 var firebase = require('firebase');
 var database = firebase.database();
+var dbExpense = database.ref('/expenses/');
+
 
 module.exports = function(app, path){
     
@@ -8,7 +10,7 @@ module.exports = function(app, path){
     });
 
     app.get('/allExpenses', function(req, res){
-        database.ref('/').once("value", function(snapshot) {
+        dbExpense.once("value", function(snapshot) {
             // console.log(snapshot.val());
             res.send(snapshot.val());
           }, function (errorObject) {
@@ -17,10 +19,18 @@ module.exports = function(app, path){
     });
 
     app.post('/addExpense', function(req, res){
-        console.log(req);
-        // database.ref('/').push(expense, function(error){
-        //     console.log(error);
-        // });
+        var expense = req.body;
+
+        dbExpense.push(expense, function(error){
+            if(error){
+                console.log("Data could not be saved." + error);
+                res.send('worked');
+            } else {
+                console.log("Data saved successfully.");
+                res.send('error');
+            }
+        });
+        
     });
 
     app.use('*', function(req,res){
