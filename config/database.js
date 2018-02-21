@@ -1,8 +1,8 @@
 module.exports = {
     apiKey: "YOUR_API_KEY",
     authDomain: "YOUR_AUTH_DOMAIN",
-    databaseURL: "YOUR_DATABASE_URL",
+    databaseURL: "YOUR_FIREBASE_URL",
     projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_STORAGE_BUCKET",
+    storageBucket: "",
     messagingSenderId: "YOUR_MESSAGING_SENDER_ID"
 };

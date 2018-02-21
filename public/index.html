@@ -9,7 +9,16 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/style.css" />
     <script src="./assets/js/modals.js"></script>
-
+    <script src="./assets/js/plentz-jquery-maskmoney/dist/jquery.maskMoney.js"></script>
+    <script src="./assets/js/plentz-jquery-maskmoney/dist/jquery.maskMoney.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#expValue").maskMoney();
+            $("#expType").select2();
+        });
+    </script>
 </head>
 
 <body class="well" ng-app="expense.controller" ng-controller="expense">
@@ -51,9 +60,12 @@
         <div ng-repeat="x in expenses">
             <div class="col-md-4">
                 <div class="alert alert-info" role="alert">
-                    <p><label>Type:</label>{{ x.Type }}</p>
-                    <p><label>Value:</label>{{ x.Value }}</p>
-                    <p><label>Type:</label>{{ x.Type }}</p>
+                    <p>
+                        <label>Type:</label>{{ x.Type }}</p>
+                    <p>
+                        <label>Value:</label>{{ x.Value }}</p>
+                    <p>
+                        <label>Type:</label>{{ x.Type }}</p>
                 </div>
             </div>
         </div>
@@ -69,9 +81,8 @@
                     <form>
                         <div class="row">
                             <div class="col-md-12">
-                                <label>Type:</label>
-                                <select class="form-control" ng-model="expenseType">
-                                    <option selected>-- Select one option --</option>
+                                <label>Type:</label><br/>
+                                <select class="form-control" ng-model="expenseType" id="expType">
                                     <option value="Fixed">Fixed</option>
                                     <option value="Daycare">Daycare</option>
                                     <option value="Loans">Loans</option>
@@ -86,7 +97,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <label>Value:</label>
-                                <input type="text" class="form-control" placeholder="$0.00" ng-model="expenseValue" />
+                                <input type="text" class="form-control" placeholder="$0.00" ng-model="expenseValue" id="expValue" />
                             </div>
                         </div>
                         <div class="row">
