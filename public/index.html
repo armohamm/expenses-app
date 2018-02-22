@@ -9,16 +9,6 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/style.css" />
     <script src="./assets/js/modals.js"></script>
-    <script src="./assets/js/plentz-jquery-maskmoney/dist/jquery.maskMoney.js"></script>
-    <script src="./assets/js/plentz-jquery-maskmoney/dist/jquery.maskMoney.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $("#expValue").maskMoney();
-            $("#expType").select2();
-        });
-    </script>
 </head>
 
 <body class="well" ng-app="expense.controller" ng-controller="expense">
@@ -52,36 +42,53 @@
     </div>
 
     <div class="row">
-        <h3>Hello! Let's visualize how you are spending your
-            <strong>money</strong>!</h3>
+        <div class="col-md-12">
+            <h3>Hello! Let's visualize how you are spending your
+                <strong>money</strong>!</h3>
+        </div>
     </div>
 
     <div class="row">
-        <div ng-repeat="x in expenses">
-            <div class="col-md-4">
-                <div class="alert alert-info" role="alert">
-                    <p>
-                        <label>Type:</label>{{ x.Type }}</p>
-                    <p>
-                        <label>Value:</label>{{ x.Value }}</p>
-                    <p>
-                        <label>Type:</label>{{ x.Type }}</p>
-                </div>
-            </div>
+        <div class="col-md-12">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-center">Expense Type</th>
+                        <th class="text-center">Value</th>
+                        <th class="text-center">Note</th>
+                        <th class="text-center"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="x in expenses">
+                        <td align="center">{{ x.Type }}</td>
+                        <td align="center">{{ x.Value }}</td>
+                        <td align="center">{{ x.Note }}</td>
+                        <td align="center">
+                            <a class="btn btn-warning" id="{{x}}" ng-click="getExpense($event)"><span class="glyphicon glyphicon-edit"></span></a>
+                            <a class="btn btn-danger" id="{{x.Key}}" ng-click="deleteExpense($event)"><span class="glyphicon glyphicon-trash"></span></a>
+                        </td>
+                    </tr>
+                    <tr ng-if="expenses.length<1">
+                        <td colspan="4">No data to display.</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
     <div class="modal fade" id="addExpense" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header" align="center">
+                <div class="modal-header modal-add" align="center">
                     <h3>Add Expense</h3>
                 </div>
                 <div class="modal-body">
                     <form>
                         <div class="row">
                             <div class="col-md-12">
-                                <label>Type:</label><br/>
+                                <label>Type:</label>
+                                <br/>
                                 <select class="form-control" ng-model="expenseType" id="expType">
                                     <option value="Fixed">Fixed</option>
                                     <option value="Daycare">Daycare</option>
@@ -97,7 +104,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <label>Value:</label>
-                                <input type="text" class="form-control" placeholder="$0.00" ng-model="expenseValue" id="expValue" />
+                                <input type="text" class="form-control" placeholder="$0.00" ng-model="expenseValue" />
                             </div>
                         </div>
                         <div class="row">
@@ -118,7 +125,55 @@
         </div>
     </div>
 
-    <script src="./assets/js/angular/expenseapp.js"></script>
+    <div class="modal fade" id="updateExpense" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-edit" align="center">
+                        <h3>Edit Expense</h3>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Type:</label>
+                                    <br/>
+                                    <select class="form-control" ng-model="expenseType" id="expType">
+                                        <option value="Fixed">Fixed</option>
+                                        <option value="Daycare">Daycare</option>
+                                        <option value="Loans">Loans</option>
+                                        <option value="Daycare">Daycare</option>
+                                        <option value="Tuition">Tuition</option>
+                                        <option value="Utilities">Utilities</option>
+                                        <option value="Vacation">Vacation</option>
+                                        <option value="Fun">Fun</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Value:</label>
+                                    <input type="text" class="form-control" placeholder="$0.00" ng-model="expenseValue" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Value:</label>
+                                    <textarea class="form-control" placeholder="Insert some notes here..." ng-model="expenseNote" ></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <p>
+                            <a class="btn btn-warning" ng-click="updateExpense()"> Update</a>
+                            <a class="btn btn-default" onclick="$('#updateExpense').modal('hide');">Close</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <script src="./assets/js/angular/expenseController.js"></script>
 </body>
 
 </html>

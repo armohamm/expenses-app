@@ -16,6 +16,6 @@ app.use(bodyParser.json());
 
 require('./routes/routes.js')(app, path);
 
-var listener = app.listen(process.env.PORT || 8080 , function(){
+var listener = app.listen(process.env.PORT || 3000 , function(){
     console.log('Listening expenses-app on ' + listener.address().port);
 });

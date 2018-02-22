@@ -6,11 +6,21 @@
     margin-top: 10px;
 }
 
-.modal-header{
+.modal-add{
     background-color: #1f79bd;
+    color: white;
+}
+
+.modal-edit{
+    background-color: #ffb100;
     color: white;
 }
 
 .fade{
     background-color : transparent;
+}
+
+#dateCreated{
+    text-align: right;
+    font-size: 10pt;
 }
