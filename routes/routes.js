@@ -24,8 +24,6 @@ module.exports = function (app, path) {
         }, function (errorObject) {
             console.log("The read failed: " + errorObject.code);
         });
-
-
     });
 
     app.post('/addExpense', function (req, res) {
@@ -55,7 +53,7 @@ module.exports = function (app, path) {
 
         var result = "";
 
-        dbExpense.child(key).set(expense, function (error){
+        dbExpense.child(key).set(expense, function (error) {
             if (error) {
                 console.log("Data could not be updated." + error);
                 result = "error";
@@ -68,13 +66,13 @@ module.exports = function (app, path) {
         res.send(result);
     });
 
-    app.get('/removeExpenses/:key', function (req, res){
-        
+    app.get('/removeExpenses/:key', function (req, res) {
+
         var key = req.params.key;
 
         var result = "";
 
-        dbExpense.child(key).remove(function(error){
+        dbExpense.child(key).remove(function (error) {
             if (error) {
                 console.log("Data could not be deleted." + error);
                 result = "error";

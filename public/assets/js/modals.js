@@ -2,6 +2,7 @@ function openAddExpenseModal(){
     $("#addExpense").modal();
 }
 
-function openEditExpenseModal(id){
+function openEditExpenseModal(){
     $("#updateExpense").modal();
 }
+

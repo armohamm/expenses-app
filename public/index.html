@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/style.css" />
     <script src="./assets/js/modals.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 </head>
 
 <body class="well" ng-app="expense.controller" ng-controller="expense">
@@ -31,7 +35,7 @@
                                 <span class="glyphicon glyphicon-plus"></span> Add Expense</a>
                         </li>
                         <li>
-                            <a href="">
+                            <a href="" onclick="populateChartByYear()">
                                 <span class="glyphicon glyphicon-info-sign"></span> About it</a>
                             </a>
                         </li>
@@ -49,7 +53,7 @@
     </div>
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -65,8 +69,12 @@
                         <td align="center">{{ x.Value }}</td>
                         <td align="center">{{ x.Note }}</td>
                         <td align="center">
-                            <a class="btn btn-warning" id="{{x}}" ng-click="getExpense($event)"><span class="glyphicon glyphicon-edit"></span></a>
-                            <a class="btn btn-danger" id="{{x.Key}}" ng-click="deleteExpense($event)"><span class="glyphicon glyphicon-trash"></span></a>
+                            <a class="btn btn-warning" id="{{x}}" ng-click="getExpense($event)">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </a>
+                            <a class="btn btn-danger" id="{{x.Key}}" ng-click="deleteExpense($event)">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </a>
                         </td>
                     </tr>
                     <tr ng-if="expenses.length<1">
@@ -74,6 +82,12 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+        <div class="col-md-6" ng-if="expenses.length>0">
+            <div id="chart_container">
+                <canvas id="pie_chart_expenses"></canvas>
+                <progress id="animationProgress" max="1" value="0" style="width: 100%"></progress>
+            </div>
         </div>
     </div>
 
@@ -104,7 +118,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <label>Value:</label>
-                                <input type="text" class="form-control" placeholder="$0.00" ng-model="expenseValue" />
+                                <input type="text" class="form-control" placeholder="$0.00" ng-model="expenseValue" onkeypress='return event.charCode >= 48 && event.charCode <= 57' />
                             </div>
                         </div>
                         <div class="row">
@@ -126,52 +140,52 @@
     </div>
 
     <div class="modal fade" id="updateExpense" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header modal-edit" align="center">
-                        <h3>Edit Expense</h3>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label>Type:</label>
-                                    <br/>
-                                    <select class="form-control" ng-model="expenseType" id="expType">
-                                        <option value="Fixed">Fixed</option>
-                                        <option value="Daycare">Daycare</option>
-                                        <option value="Loans">Loans</option>
-                                        <option value="Daycare">Daycare</option>
-                                        <option value="Tuition">Tuition</option>
-                                        <option value="Utilities">Utilities</option>
-                                        <option value="Vacation">Vacation</option>
-                                        <option value="Fun">Fun</option>
-                                    </select>
-                                </div>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-edit" align="center">
+                    <h3>Edit Expense</h3>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Type:</label>
+                                <br/>
+                                <select class="form-control" ng-model="expenseType" id="expType">
+                                    <option value="Fixed">Fixed</option>
+                                    <option value="Daycare">Daycare</option>
+                                    <option value="Loans">Loans</option>
+                                    <option value="Daycare">Daycare</option>
+                                    <option value="Tuition">Tuition</option>
+                                    <option value="Utilities">Utilities</option>
+                                    <option value="Vacation">Vacation</option>
+                                    <option value="Fun">Fun</option>
+                                </select>
                             </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label>Value:</label>
-                                    <input type="text" class="form-control" placeholder="$0.00" ng-model="expenseValue" />
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Value:</label>
+                                <input type="text" class="form-control" placeholder="$0.00" ng-model="expenseValue" onkeypress='return event.charCode >= 48 && event.charCode <= 57' />
                             </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label>Value:</label>
-                                    <textarea class="form-control" placeholder="Insert some notes here..." ng-model="expenseNote" ></textarea>
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Value:</label>
+                                <textarea class="form-control" placeholder="Insert some notes here..." ng-model="expenseNote"></textarea>
                             </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <p>
-                            <a class="btn btn-warning" ng-click="updateExpense()"> Update</a>
-                            <a class="btn btn-default" onclick="$('#updateExpense').modal('hide');">Close</a>
-                        </p>
-                    </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <p>
+                        <a class="btn btn-warning" ng-click="updateExpense()"> Update</a>
+                        <a class="btn btn-default" onclick="$('#updateExpense').modal('hide');">Close</a>
+                    </p>
                 </div>
             </div>
         </div>
+    </div>
 
     <script src="./assets/js/angular/expenseController.js"></script>
 </body>
