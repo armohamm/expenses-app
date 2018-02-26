@@ -16,6 +16,8 @@ controllers.controller('expense', function ($scope, $http) {
         $http.post("http://localhost:3000/addExpense", expense)
             .then(function (response) { $scope.result = response.data; });
 
+        cleanForm();
+
         $("#addExpense").modal('hide');
 
         $http.get("http://localhost:3000/allExpenses").then(function (response) {
@@ -46,6 +48,8 @@ controllers.controller('expense', function ($scope, $http) {
             $scope.expenses = response.data;
         });
 
+        cleanForm();
+
         $("#updateExpense").modal('hide');
 
         $http.get("http://localhost:3000/allExpenses").then(function (response) {
@@ -72,6 +76,12 @@ controllers.controller('expense', function ($scope, $http) {
         var types = ['Fixed', 'Daycare', 'Loans', 'Daycare', 'Tuition', 'Utilities', 'Vacation', 'Fun'];
         var total = generateChart(response);
         populateChart(types, total);
+    }
+
+    function cleanForm(){
+        $scope.expenseType = null;
+        $scope.expenseValue = null;
+        $scope.expenseNote = null;
     }
 
     function populateChart(types, total) {
