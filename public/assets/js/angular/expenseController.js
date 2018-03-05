@@ -2,7 +2,9 @@ var controllers = angular.module('expense.controller', []);
 
 controllers.controller('expense', function ($scope, $http) {
 
-    $http.get("http://localhost:3000/allExpenses").then(function (response) {
+    var url = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
+
+    $http.get(url + "/allExpenses").then(function (response) {
         $scope.expenses = response.data;
         chart(response);
     });
@@ -13,14 +15,14 @@ controllers.controller('expense', function ($scope, $http) {
 
         console.log(expense);
 
-        $http.post("http://localhost:3000/addExpense", expense)
+        $http.post(url + "/addExpense", expense)
             .then(function (response) { $scope.result = response.data; });
 
         cleanForm();
 
         $("#addExpense").modal('hide');
 
-        $http.get("http://localhost:3000/allExpenses").then(function (response) {
+        $http.get(url + "/allExpenses").then(function (response) {
             $scope.expenses = response.data;
             chart(response);
         });
@@ -44,7 +46,7 @@ controllers.controller('expense', function ($scope, $http) {
 
         var key = $scope.Key;
 
-        $http.post("http://localhost:3000/updateExpense/" + key, expense).then(function (response) {
+        $http.post(url + "/updateExpense/" + key, expense).then(function (response) {
             $scope.expenses = response.data;
         });
 
@@ -52,7 +54,7 @@ controllers.controller('expense', function ($scope, $http) {
 
         $("#updateExpense").modal('hide');
 
-        $http.get("http://localhost:3000/allExpenses").then(function (response) {
+        $http.get(url + "/allExpenses").then(function (response) {
             $scope.expenses = response.data;
             chart(response);
         });
@@ -62,11 +64,11 @@ controllers.controller('expense', function ($scope, $http) {
         
         var key = event.target.id;
 
-        $http.get("http://localhost:3000/removeExpenses/" + key).then(function (response) {
+        $http.get(url + "/removeExpenses/" + key).then(function (response) {
             $scope.expenses = response.data;
         });
 
-        $http.get("http://localhost:3000/allExpenses").then(function (response) {
+        $http.get(url + "/allExpenses").then(function (response) {
             $scope.expenses = response.data;
             chart(response);
         });
