@@ -13,4 +13,4 @@ storageBucket: "YOUR_STORAGE_BUCKET",
 messagingSenderId: "YOUR_MESSAGING_SENDER_ID"
 ```
 
-3. Run the application `node app.js`
+3. Run the application `npm start`
