@@ -2,7 +2,7 @@ var controllers = angular.module('expense.controller', []);
 
 controllers.controller('expense', function ($scope, $http) {
 
-    var url = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
+    var url = location.protocol + '//' + location.hostname  + (location.port ? ':' + location.port: '');
 
     $http.get(url + "/allExpenses").then(function (response) {
         $scope.expenses = response.data;
