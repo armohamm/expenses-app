@@ -2,59 +2,68 @@
 
 <head>
     <title>Expenses App</title>
+    <link href="./assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link href="./assets/plugins/open-iconic-master/font/css/open-iconic-bootstrap.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular-route.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./assets/css/style.css" />
-    <script src="./assets/js/modals.js"></script>
+    <script type="text/javascript" src="./assets/plugins/jquery/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="./assets/plugins/jquery/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="./assets/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    <script src="./assets/js/modals.js"></script>
 </head>
 
 <body class="well" ng-app="expense.controller" ng-controller="expense">
 
     <div class="row">
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="/">Expenses App</a>
-                </div>
-                <div class="collapse navbar-collapse" id="myNavbar">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="" onclick="openAddExpenseModal()">
-                                <span class="glyphicon glyphicon-plus"></span> Add Expense</a>
+
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+            <a class="navbar-brand" href="#">Expenses App</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto">
+                    <!-- <li class="nav-item" >
+                        <a class="nav-link" href="#" onclick="openAddExpenseModal()"><span class="oi oi-plus" aria-hidden="true"></span> Add Expense</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><span class="oi oi-info" aria-hidden="true"></span> About it</a>
+                    </li> -->
+                </ul>
+                <div class="mt-2 mt-lg-0">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="openAddExpenseModal()">
+                                <span class="oi oi-plus" aria-hidden="true"></span> Add Expense</a>
                         </li>
-                        <li>
-                            <a href="" onclick="populateChartByYear()">
-                                <span class="glyphicon glyphicon-info-sign"></span> About it</a>
-                            </a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span class="oi oi-info" aria-hidden="true"></span> About it</a>
                         </li>
                     </ul>
                 </div>
+
             </div>
         </nav>
     </div>
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col firstText">
             <h3>Hello! Let's visualize how you are spending your
                 <strong>money</strong>!</h3>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-md-6">
-            <table class="table table-bordered">
+        <div class="col">
+            <table class="table table-bordered table-responsive-md">
+                <caption>List of expenses</caption>
                 <thead>
                     <tr>
                         <th class="text-center">Expense Type</th>
@@ -70,10 +79,10 @@
                         <td align="center">{{ x.Note }}</td>
                         <td align="center">
                             <a class="btn btn-warning" id="{{x}}" ng-click="getExpense($event)">
-                                <span class="glyphicon glyphicon-edit"></span>
+                                <span class="oi oi-pencil"></span>
                             </a>
                             <a class="btn btn-danger" id="{{x.Key}}" ng-click="deleteExpense($event)">
-                                <span class="glyphicon glyphicon-trash"></span>
+                                <span class="oi oi-trash"></span>
                             </a>
                         </td>
                     </tr>
@@ -83,7 +92,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-md-6" ng-if="expenses.length>0">
+        <div class="col" ng-if="expenses.length>0">
             <div id="chart_container">
                 <canvas id="pie_chart_expenses"></canvas>
                 <progress id="animationProgress" max="1" value="0" style="width: 100%"></progress>
@@ -118,7 +127,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <label>Value:</label>
-                                <input type="text" class="form-control" placeholder="$0.00" ng-model="expenseValue" onkeypress='return event.charCode >= 48 && event.charCode <= 57' />
+                                <input type="text" class="form-control" placeholder="$0.00" ng-model="expenseValue" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                                />
                             </div>
                         </div>
                         <div class="row">
@@ -166,7 +176,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <label>Value:</label>
-                                <input type="text" class="form-control" placeholder="$0.00" ng-model="expenseValue" onkeypress='return event.charCode >= 48 && event.charCode <= 57' />
+                                <input type="text" class="form-control" placeholder="$0.00" ng-model="expenseValue" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                                />
                             </div>
                         </div>
                         <div class="row">

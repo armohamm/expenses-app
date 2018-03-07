@@ -10,7 +10,7 @@ firebase.initializeApp(database);
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-app.use(express.static('./public'));
+app.use(express.static(__dirname +  '/public'));
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 
