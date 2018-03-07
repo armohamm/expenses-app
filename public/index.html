@@ -15,6 +15,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
     <script src="./assets/js/modals.js"></script>
+    <script src="./assets/js/chart.js"></script>
 </head>
 
 <body class="well" ng-app="expense.controller" ng-controller="expense">
@@ -22,7 +23,7 @@
     <div class="row">
 
         <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
-            <a class="navbar-brand" href="#">Expenses App</a>
+            <a class="navbar-brand"><strong>Expenses App</strong></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
                 aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -95,7 +96,7 @@
         <div class="col" ng-if="expenses.length>0">
             <div id="chart_container">
                 <canvas id="pie_chart_expenses"></canvas>
-                <progress id="animationProgress" max="1" value="0" style="width: 100%"></progress>
+                <progress id="animationProgress" max="1" value="0"></progress>
             </div>
         </div>
     </div>

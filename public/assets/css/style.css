@@ -36,3 +36,11 @@
 .oi-trash{
     color: white;
 }
+
+#pie_chart_expenses{
+    width: 1000px;
+}
+
+caption{
+    text-align: right;
+}

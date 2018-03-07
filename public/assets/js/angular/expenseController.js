@@ -6,7 +6,7 @@ controllers.controller('expense', function ($scope, $http) {
 
     $http.get(url + "/allExpenses").then(function (response) {
         $scope.expenses = response.data;
-        chart(response);
+        // chart(response);
     });
 
     $scope.addExpense = function () {
@@ -118,6 +118,7 @@ controllers.controller('expense', function ($scope, $http) {
                 }
             }
         });
+        bacChart.update();
     }
 
     function generateChart(response){
