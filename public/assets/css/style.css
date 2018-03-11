@@ -37,10 +37,41 @@
     color: white;
 }
 
-#pie_chart_expenses{
-    width: 1000px;
-}
-
 caption{
     text-align: right;
 }
+
+/* Large Devices, Wide Screens */
+@media only screen and (max-width : 1200px) {
+    #pie_chart_expenses{
+        width: 300px;
+        }
+    }
+    
+    /* Medium Devices, Desktops */
+    @media only screen and (max-width : 992px) {
+        #pie_chart_expenses{
+            width: 800px;
+        }
+    }
+    
+    /* Small Devices, Tablets */
+    @media only screen and (max-width : 768px) {
+        #pie_chart_expenses{
+            width: 500px;
+        }
+    }
+    
+    /* Extra Small Devices, Phones */ 
+    @media only screen and (max-width : 480px) {
+        #pie_chart_expenses{
+            width: 300px;
+        }
+    }
+    
+    /* Custom, iPhone Retina */ 
+    @media only screen and (max-width : 320px) {
+        #pie_chart_expenses{
+            width: 120px;
+        }
+    }
